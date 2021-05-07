@@ -191,4 +191,4 @@ void Controller::receive(std::unique_ptr<Event> e)
     }
 }
 
-} // namespace Snake
+} 
