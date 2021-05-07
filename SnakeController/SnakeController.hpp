@@ -6,7 +6,7 @@
 
 #include "IEventHandler.hpp"
 #include "SnakeInterface.hpp"
-//pierwszy commit
+
 class Event;
 class IPort;
 
@@ -35,20 +35,15 @@ public:
 private:
     struct Segment
     {
-        int x;
-        int y;
-        int ttl;
+        int x, y, ttl;
     };
 
-    IPort& m_displayPort;
-    IPort& m_foodPort;
-    IPort& m_scorePort;
+    IPort& m_displayPort, &m_foodPort, &m_scorePort;
 
-    std::pair<int, int> m_mapDimension;
-    std::pair<int, int> m_foodPosition;
+    std::pair<int, int> m_mapDimension, m_foodPosition;
 
     Direction m_currentDirection;
     std::list<Segment> m_segments;
 };
 
-} // namespace Snake
+}

@@ -37,8 +37,7 @@ struct DisplayInd
 {
     static constexpr std::uint32_t MESSAGE_ID = 0x30;
 
-    int x;
-    int y;
+    int x,y;
     Cell value;
 };
 
@@ -46,8 +45,7 @@ struct FoodInd
 {
     static constexpr std::uint32_t MESSAGE_ID = 0x40;
 
-    int x;
-    int y;
+    int x,y;
 };
 
 struct FoodReq
@@ -59,8 +57,7 @@ struct FoodResp
 {
     static constexpr std::uint32_t MESSAGE_ID = 0x42;
 
-    int x;
-    int y;
+    int x,y;
 };
 
 struct ScoreInd
