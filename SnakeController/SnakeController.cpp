@@ -16,24 +16,24 @@ UnexpectedEventException::UnexpectedEventException()
     : std::runtime_error("Unexpected event received!")
 {}
 
-Controller::Controller(IPort& p_display_port, IPort& p_food_port, IPort& p_score_ort, std::string const& p_config)
+Controller::Controller(IPort& p_display_port, IPort& p_food_port, IPort& p_score_port, std::string const& p_config)
     : m_display_port(p_display_port),
       m_food_port(p_food_port),
-      m_score_port(p_score_ort)
+      m_score_port(p_score_port)
 {
-    std::istringstream istr(p_config);
-    char w, f, s, d;
+    std::istringstream istr_config(p_config);
+    char w, f, s, direction;
 
     int width, height, length;
     int food_x, food_y;
-    istr >> w >> width >> height >> f >> food_x >> food_y >> s;
+    istr_config >> w >> width >> height >> f >> food_x >> food_y >> s;
 
     if (w == 'W' and f == 'F' and s == 'S') {
         m_map_dimension = std::make_pair(width, height);
         m_food_position = std::make_pair(food_x, food_y);
 
-        istr >> d;
-        switch (d) {
+        istr_config >> direction;
+        switch (direction) {
             case 'U':
                 m_current_direction = Direction_UP;
                 break;
@@ -49,14 +49,14 @@ Controller::Controller(IPort& p_display_port, IPort& p_food_port, IPort& p_score
             default:
                 throw ConfigurationError();
         }
-        istr >> length;
+        istr_config >> length;
 
         while (length) {
-            Segment seg;
-            istr >> seg.x >> seg.y;
-            seg.ttl = length--;
+            Segment segment;
+            istr_config >> segment.x >> segment.y;
+            segment.ttl = length--;
 
-            m_segments.push_back(seg);
+            m_segments.push_back(segment);
         }
     } else {
         throw ConfigurationError();
