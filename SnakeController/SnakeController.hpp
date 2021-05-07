@@ -25,7 +25,7 @@ struct UnexpectedEventException : std::runtime_error
 class Controller : public IEventHandler
 {
 public:
-    Controller(IPort& p_displayPort, IPort& p_foodPort, IPort& p_scorePort, std::string const& p_config);
+    Controller(IPort& p_display_port, IPort& p_food_port, IPort& p_score_port, std::string const& p_config);
 
     Controller(Controller const& p_rhs) = delete;
     Controller& operator=(Controller const& p_rhs) = delete;
@@ -38,11 +38,11 @@ private:
         int x, y, ttl;
     };
 
-    IPort& m_displayPort, &m_foodPort, &m_scorePort;
+    IPort& m_display_port, &m_food_port, &m_score_port;
 
-    std::pair<int, int> m_mapDimension, m_foodPosition;
+    std::pair<int, int> m_map_dimension, m_food_position;
 
-    Direction m_currentDirection;
+    Direction m_current_direction;
     std::list<Segment> m_segments;
 };
 
