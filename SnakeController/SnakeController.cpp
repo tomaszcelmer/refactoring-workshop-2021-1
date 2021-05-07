@@ -28,38 +28,37 @@ Controller::Controller(IPort& p_display_port, IPort& p_food_port, IPort& p_score
     int food_x, food_y;
     istr_config >> w >> width >> height >> f >> food_x >> food_y >> s;
 
-    if (w == 'W' and f == 'F' and s == 'S') {
-        m_map_dimension = std::make_pair(width, height);
-        m_food_position = std::make_pair(food_x, food_y);
-
-        istr_config >> direction;
-        switch (direction) {
-            case 'U':
-                m_current_direction = Direction_UP;
-                break;
-            case 'D':
-                m_current_direction = Direction_DOWN;
-                break;
-            case 'L':
-                m_current_direction = Direction_LEFT;
-                break;
-            case 'R':
-                m_current_direction = Direction_RIGHT;
-                break;
-            default:
-                throw ConfigurationError();
-        }
-        istr_config >> length;
-
-        while (length) {
-            Segment segment;
-            istr_config >> segment.x >> segment.y;
-            segment.ttl = length--;
-
-            m_segments.push_back(segment);
-        }
-    } else {
+    if (!(w == 'W' || f == 'F' || s == 'S')) {
         throw ConfigurationError();
+    }
+    m_map_dimension = std::make_pair(width, height);
+    m_food_position = std::make_pair(food_x, food_y);
+
+    istr_config >> direction;
+    switch (direction) {
+        case 'U':
+            m_current_direction = Direction_UP;
+            break;
+        case 'D':
+            m_current_direction = Direction_DOWN;
+            break;
+        case 'L':
+            m_current_direction = Direction_LEFT;
+            break;
+        case 'R':
+            m_current_direction = Direction_RIGHT;
+            break;
+        default:
+            throw ConfigurationError();
+    }
+    istr_config >> length;
+
+    while (length) {
+        Segment segment;
+        istr_config >> segment.x >> segment.y;
+        segment.ttl = length--;
+
+        m_segments.push_back(segment);
     }
 }
 
